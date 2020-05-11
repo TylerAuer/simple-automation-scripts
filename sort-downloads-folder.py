@@ -1,15 +1,16 @@
+#!.pyenv/versions/3.8.2/bin/python3.8
 '''
 To be used as a crontask
 
 Scans downloads folder, moves certain file types into folders automatically
 
-
+On newer macos (definitely Catalina) will need to grant cron Full Disc Access
 '''
-
 import os
 import pathlib
 import shutil
 import time
+
 
 # Set how long new files live in Downloads before being sorted
 do_not_move_for = 30
@@ -18,27 +19,27 @@ do_not_move_for = 30
 # Add filetypes (keys) or folders (values) to add sorting features
 # Extensions not found in this dict go into a folder called "other"
 ext_to_folders = {
-    ".doc": "docs",
-    ".docx": "docs",
-    ".txt": "docs",
-    ".xls": "docs",
-    ".xlsx": "docs",
-    ".gif": "images",
-    ".jpg": "images",
-    ".jpeg": "images",
-    ".JPG": "images",
-    ".png": "images",
-    ".psd": "images",
-    ".tif": "images",
-    ".tiff": "images",
-    ".mp4": "music_and_movies",
-    ".mp3": "music_and_movies",
+    ".doc": "Docs",
+    ".docx": "Docs",
+    ".txt": "Docs",
+    ".xls": "Docs",
+    ".xlsx": "Docs",
+    ".gif": "Images",
+    ".jpg": "Images",
+    ".jpeg": "Images",
+    ".JPG": "Images",
+    ".png": "Images",
+    ".psd": "Images",
+    ".tif": "Images",
+    ".tiff": "Images",
+    ".mp4": "Music and Movies",
+    ".mp3": "Music and Movies",
     ".pdf": "PDFs",
-    ".bz2": "system",
-    ".dmg": "system",
-    ".pkg": "system",
-    ".tz": "system",
-    ".zip": "system",
+    ".bz2": "System",
+    ".dmg": "System",
+    ".pkg": "System",
+    ".tz": "System",
+    ".zip": "System",
 }
 
 # Location of the downloads folder
@@ -51,13 +52,13 @@ list_of_files = os.listdir(download_folder_path)
 # The current time
 current_epoch_time = time.time()
 
+
 # For each file in the downloads folder
 for file in list_of_files:
 
     # Skips to next file if file is actualy a dir
     # This leaves the current any folders in /Downloads
     if os.path.isdir(download_folder_path + '/' + file) == True:
-        print("skipped --> ", file)
         continue
 
     # Creates object of file data (ex: file created, last modified)
